@@ -30,6 +30,10 @@ public class CustomGatewayJWTGenerator extends APIMgtGatewayJWTGeneratorImpl {
         claims.put("iat", String.valueOf(currentTime));
 
         claims.put("enduserTenantId", String.valueOf(jwtInfoDto.getEndUserTenantId()));
+        String endUser = jwtInfoDto.getEndUser();
+        if (endUser != null && endUser.contains("@")) {
+            claims.put("endUserTenantDomain", endUser.substring(endUser.indexOf('@') + 1));
+        }
         return claims;
     }
 
